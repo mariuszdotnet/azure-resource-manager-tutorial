@@ -3,6 +3,18 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {},
-    "resources": [],
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "demovmsa01",
+            "apiVersion": "2017-06-01",
+            "location": "East US 2",
+            "sku": {
+              "name": "Standard_LRS"
+            },
+            "kind": "Storage",
+           "properties": {}
+          }  
+    ],
     "outputs": {}
 }
