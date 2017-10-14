@@ -24,11 +24,7 @@
         }
     ],
     "outputs": {
-        "result": {
-            "value": "Hello World",
-            "type" : "string"
-        },
-        "storageAccountId": {
+        "existingStorageAccountId": {
             "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
             "type" : "string"    
         }

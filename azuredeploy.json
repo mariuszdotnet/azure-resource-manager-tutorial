@@ -163,7 +163,7 @@
       }    
     ],
     "outputs": {
-      "result": {
+      "existingStorageAccountId": {
         "type": "string",
         "value": "[reference('linkedTemplate').outputs.existingStorageAccountId.value]"
       }
