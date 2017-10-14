@@ -4,6 +4,15 @@
     "parameters": {
         "storageAccountName": {    
             "value": "demovmsa01"
+        },
+        "existingVirtualNetworkRG":{
+            "value": "arm-tutorial-vnet-rg"
+        },
+        "existingVirtualNetworkName":{
+            "value": "armdemovnet"
+        },
+        "existingSubnetName":{
+            "value": "demosubnet"
         }
     }
 }
