@@ -1,14 +1,23 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+              "description": "The storage account name that will store your VMs vhd disks."
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "demovmsa01",
+            "name": "[parameters('storageAccountName')]",
             "apiVersion": "2017-06-01",
-            "location": "East US 2",
+            "location": "[resourceGroup().location]",
             "sku": {
               "name": "Standard_LRS"
             },
