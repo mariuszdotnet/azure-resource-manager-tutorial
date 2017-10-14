@@ -13,6 +13,15 @@
         },
         "existingSubnetName":{
             "value": "demosubnet"
+        },
+        "vmName":{
+            "value": "demovmname"
+        },
+        "adminUsername": {   
+            "value": "demoadminuser"
+        },
+        "adminPassword": {    
+            "value": "99SuperSecurePassword!!"
         }
     }
 }
