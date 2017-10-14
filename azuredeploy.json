@@ -65,7 +65,14 @@
           "metadata": {
             "description": "Password for the Virtual Machine."
           }
-        }        
+        },
+        "numberOfDataDisks": {
+          "type": "int",
+          "defaultValue": 2,
+          "metadata": {
+            "description": "The number of data disks you want to attach to the VM"
+          }
+        }      
     },
     "variables": {
         "nicName": "demovmnic",
@@ -133,13 +140,15 @@
               "osDisk": {
                 "createOption": "FromImage"
               },
-              "dataDisks": [
-                {
-                  "diskSizeGB": 1023,
-                  "lun": 0,
-                  "createOption": "Empty"
+              "copy": [{
+                "name": "dataDisks",
+                "count": "[parameters('numberOfDataDisks')]",
+                "input": {
+                    "lun": "[copyIndex('dataDisks')]",
+                    "createOption": "Empty",
+                    "diskSizeGB": "1023"
                 }
-              ]    
+            }]         
             },
             "networkProfile": {
               "networkInterfaces": [
