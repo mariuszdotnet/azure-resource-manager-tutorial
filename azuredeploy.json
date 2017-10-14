@@ -78,21 +78,9 @@
         "nicName": "demovmnic",
         "existingVirtualNetworkId": "[resourceId(parameters('existingVirtualNetworkRG'), 'Microsoft.Network/virtualNetworks/', parameters('existingVirtualNetworkName'))]",
         "existingSubnetId": "[concat(variables('existingVirtualNetworkId'),'/subnets/',parameters('existingSubnetName'))]",
-        "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
         "nicId": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
     },
     "resources": [
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[parameters('storageAccountName')]",
-            "apiVersion": "2017-06-01",
-            "location": "[resourceGroup().location]",
-            "sku": {
-              "name": "Standard_LRS"
-            },
-            "kind": "Storage",
-           "properties": {}
-        },
         {
           "apiVersion": "2017-03-01",
           "type": "Microsoft.Network/networkInterfaces",
@@ -118,7 +106,6 @@
           "name": "[parameters('vmName')]",
           "location": "[resourceGroup().location]",
           "dependsOn": [
-            "[variables('storageAccountId')]",
             "[variables('nicId')]"
           ],
           "properties": {
@@ -169,7 +156,8 @@
               "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/linkedtemplate.json",
               "contentVersion": "1.0.0.0"
             }, 
-            "parameters": { 
+            "parameters": {
+              "storageAccountName":{"value": "[parameters('storageAccountName')]"}
             } 
           } 
       }    
@@ -177,7 +165,7 @@
     "outputs": {
       "result": {
         "type": "string",
-        "value": "[reference('linkedTemplate').outputs.result.value]"
+        "value": "[reference('linkedTemplate').outputs.existingStorageAccountId.value]"
       }
     }
   
