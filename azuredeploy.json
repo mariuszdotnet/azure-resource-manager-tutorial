@@ -158,7 +158,21 @@
               ]
             }
           }
-        }    
+        },
+        { 
+          "apiVersion": "2017-05-10", 
+          "name": "linkedTemplate", 
+          "type": "Microsoft.Resources/deployments", 
+          "properties": { 
+            "mode": "Incremental", 
+            "templateLink": {
+              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/newkeyvault.json",
+              "contentVersion": "1.0.0.0"
+            }, 
+            "parameters": { 
+            } 
+          } 
+      }    
     ],
     "outputs": {}
 }
