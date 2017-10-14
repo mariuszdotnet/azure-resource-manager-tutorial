@@ -166,7 +166,7 @@
           "properties": { 
             "mode": "Incremental", 
             "templateLink": {
-              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/newkeyvault.json",
+              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/linkedtemplate.json",
               "contentVersion": "1.0.0.0"
             }, 
             "parameters": { 
@@ -174,5 +174,11 @@
           } 
       }    
     ],
-    "outputs": {}
+    "outputs": {
+      "result": {
+        "type": "string",
+        "value": "[reference('linkedTemplate').outputs.result.value]"
+      }
+    }
+  
 }
