@@ -153,7 +153,7 @@
           "properties": { 
             "mode": "Incremental", 
             "templateLink": {
-              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/linkedtemplate.json",
+              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/v1.7/linkedtemplate.json",
               "contentVersion": "1.0.0.0"
             }, 
             "parameters": {
