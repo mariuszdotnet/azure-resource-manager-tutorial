@@ -46,7 +46,7 @@
                         "name": "[parameters('privateStaticIpConfig')]",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress": "10.3.0.4",
+                            "privateIPAddress": "[parameters('ipAddress')]",
                             "subnet": {
                                 "id": "[parameters('existingSubnetId')]"
                               }
