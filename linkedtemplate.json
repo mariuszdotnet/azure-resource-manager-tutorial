@@ -25,6 +25,12 @@
             "metadata": {
                 "description": "Resource Id of the existing subnet."
             }
+        },
+        "ipAddress":{
+            "type": "string",
+            "metadata": {
+                "description": "IP address to be set static."
+            }
         }
     },
     "variables": {},
