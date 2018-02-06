@@ -14,12 +14,6 @@
                 "description": "The resource ID of the IP Config."
             }
         },
-        "existingVirtualNetworkId":{
-            "type": "string",
-            "metadata": {
-                "description": "The resoruce ID of the existing Vnet."
-            }
-        },
         "nicName":{
             "type": "string",
             "metadata": {
