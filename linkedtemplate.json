@@ -46,7 +46,7 @@
             "properties": {
                 "ipConfigurations": [
                     {
-                        "name": "[parameters('privateStaticIpConfig')]]",
+                        "name": "[parameters('privateStaticIpConfig')]",
                         "id": "[parameters('privateStaticIpConfigId')]",
                         "properties": {
                             "privateIPAllocationMethod": "Static"
