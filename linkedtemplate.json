@@ -8,12 +8,6 @@
               "description": "The storage account name that will store your VMs vhd disks."
             }
         },
-        "privateStaticIpConfigId":{
-            "type": "string",
-            "metadata": {
-                "description": "The resource ID of the IP Config."
-            }
-        },
         "nicName":{
             "type": "string",
             "metadata": {
@@ -31,13 +25,13 @@
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "demovmnic",
+            "name": "[parameters('nicName')]",
             "apiVersion": "2017-10-01",
             "location": "[resourceGroup().location]",
             "properties": {
                 "ipConfigurations": [
                     {
-                        "name": "ipconfig1",
+                        "name": "[parameters('privateStaticIpConfig')]",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
                             "privateIPAddress": "10.3.0.4",
