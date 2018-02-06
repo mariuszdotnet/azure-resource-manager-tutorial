@@ -75,6 +75,7 @@
         }   
     },
     "variables": {
+        "privateStaticIpConfig": "ipconfig1",
         "nicName": "demovmnic",
         "existingVirtualNetworkId": "[resourceId(parameters('existingVirtualNetworkRG'), 'Microsoft.Network/virtualNetworks/', parameters('existingVirtualNetworkName'))]",
         "existingSubnetId": "[concat(variables('existingVirtualNetworkId'),'/subnets/',parameters('existingSubnetName'))]",
@@ -102,7 +103,7 @@
           "properties": {
             "ipConfigurations": [
               {
-                "name": "ipconfig1",
+                "name": "[variables('privateStaticIpConfig')]",
                 "properties": {
                   "privateIPAllocationMethod": "Dynamic",
                   "subnet": {
@@ -153,18 +154,25 @@
           }
         },
         { 
-          "apiVersion": "2017-05-10", 
+          "apiVersion": "2017-05-10",
+          "dependsOn": [
+            "[variables('nicId')]"
+          ], 
           "name": "linkedTemplate", 
           "type": "Microsoft.Resources/deployments", 
           "properties": { 
             "mode": "Incremental", 
             "templateLink": {
-              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/v1.8.1/linkedtemplate.json",
+              "uri": "https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-tutorial/master/linkedtemplate.json",
               "contentVersion": "1.0.0.0"
             }, 
             "parameters": {
-              "storageAccountName":{"value": "[parameters('storageAccountName')]"}
-            } 
+              "storageAccountName":{"value": "[parameters('storageAccountName')]"},
+              "nicName": {"value": "[variables('nicName')]"},
+              "privateStaticIpConfig":{"value": "[variables('privateStaticIpConfig')]"},
+              "existingSubnetId": {"value": "[variables('existingSubnetId')]"},
+              "ipAddress": {"value": "[reference(variables('nicId')).ipConfigurations[0].properties.privateIPAddress]"}
+            }
           } 
       }    
     ],
@@ -172,6 +180,10 @@
       "existingStorageAccountId": {
         "type": "string",
         "value": "[reference('linkedTemplate').outputs.existingStorageAccountId.value]"
+      },
+      "staticIp": {
+        "type": "string",
+        "value": "[reference(variables('nicId')).ipConfigurations[0].properties.privateIPAddress]"
       }
     }
   
