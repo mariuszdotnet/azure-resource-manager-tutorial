@@ -72,13 +72,30 @@
           "metadata": {
             "description": "The number of data disks you want to attach to the VM"
           }
-        }      
+        }   
     },
     "variables": {
         "nicName": "demovmnic",
         "existingVirtualNetworkId": "[resourceId(parameters('existingVirtualNetworkRG'), 'Microsoft.Network/virtualNetworks/', parameters('existingVirtualNetworkName'))]",
         "existingSubnetId": "[concat(variables('existingVirtualNetworkId'),'/subnets/',parameters('existingSubnetName'))]",
+<<<<<<< HEAD
         "nicId": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+=======
+        "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+        "nicId": "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+        "copy": [
+          {
+              "name": "dataDisks",
+              "count": "[if(equals(parameters('numberOfDataDisks'),0),1, parameters('numberOfDataDisks'))]",
+              "input": {
+                "lun": "[copyIndex('dataDisks')]",
+                "createOption": "Empty",
+                "diskSizeGB": "1023"
+              }
+          }
+      ]
+  
+>>>>>>> v1.6.1
     },
     "resources": [
         {
@@ -127,15 +144,8 @@
               "osDisk": {
                 "createOption": "FromImage"
               },
-              "copy": [{
-                "name": "dataDisks",
-                "count": "[parameters('numberOfDataDisks')]",
-                "input": {
-                    "lun": "[copyIndex('dataDisks')]",
-                    "createOption": "Empty",
-                    "diskSizeGB": "1023"
-                }
-            }]         
+              "dataDisks": 
+                "[if(equals(parameters('numberOfDataDisks'),0),json('null'),variables('dataDisks'))]"    
             },
             "networkProfile": {
               "networkInterfaces": [

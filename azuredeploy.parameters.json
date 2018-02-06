@@ -22,6 +22,9 @@
         },
         "adminPassword": {    
             "value": "99SuperSecurePassword!!"
+        },
+        "numberOfDataDisks": {    
+            "value": 1
         }
     }
 }
