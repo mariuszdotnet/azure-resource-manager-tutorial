@@ -7,10 +7,54 @@
             "metadata": {
               "description": "The storage account name that will store your VMs vhd disks."
             }
+        },
+        "privateStaticIpConfigId":{
+            "type": "string",
+            "metadata": {
+                "description": "The resource ID of the IP Config."
+            }
+        },
+        "existingVirtualNetworkId":{
+            "type": "string",
+            "metadata": {
+                "description": "The resoruce ID of the existing Vnet."
+            }
+        },
+        "nicName":{
+            "type": "string",
+            "metadata": {
+                "description": "Name of the nic."
+            }
+        },
+        "privateStaticIpConfig":{
+            "type": "string",
+            "metadata": {
+                "description": "Name of the privateStaticIpConfig."
+            }
         }
     },
     "variables": {},
     "resources": [
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('nicName')]",
+            "apiVersion": "2017-10-01",
+            "dependsOn": [
+                "[parameters('existingVirtualNetworkId')]"
+            ],
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "[parameters('privateStaticIpConfig')]]",
+                        "id": "[parameters('privateStaticIpConfigId')]",
+                        "properties": {
+                            "privateIPAllocationMethod": "Static"
+                        }
+                    }
+                ]
+            }
+        },
         {
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[parameters('storageAccountName')]",
@@ -20,7 +64,7 @@
               "name": "Standard_LRS"
             },
             "kind": "Storage",
-           "properties": {}
+           "properties": {}           
         }
     ],
     "outputs": {
